@@ -1,14 +1,26 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=3 format=2]
 
-[ext_resource path="res://Szenes/MainTurret.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Scripts/GameManager.gd" type="Script" id=1]
+[ext_resource path="res://Szenes/MainTurret.tscn" type="PackedScene" id=2]
 
 [node name="Level1" type="Node2D"]
+script = ExtResource( 1 )
 
 [node name="Camera2D" type="Camera2D" parent="."]
 anchor_mode = 0
 current = true
 
-[node name="MainTurret" parent="." instance=ExtResource( 1 )]
+[node name="MainTurret" parent="." instance=ExtResource( 2 )]
 position = Vector2( 300, 750 )
 scale = Vector2( 2, 2 )
+
+[node name="EnemyWave1SpawnTimer" type="Timer" parent="."]
+wait_time = 30.0
+autostart = true
+
+[node name="EnemySpawnCounter" type="Timer" parent="."]
+wait_time = 4.0
+autostart = true
 [connection signal="shoot" from="MainTurret" to="MainTurret" method="_on_MainTurret_shoot"]
+[connection signal="timeout" from="EnemyWave1SpawnTimer" to="." method="_on_EnemyWave1SpawnTimer_timeout"]
+[connection signal="timeout" from="EnemySpawnCounter" to="." method="_on_EnemySpawnCounter_timeout"]

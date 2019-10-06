@@ -1,4 +1,4 @@
-extends Area2D
+extends KinematicBody2D
 
 const SPEED = 200
 var velocity = Vector2()

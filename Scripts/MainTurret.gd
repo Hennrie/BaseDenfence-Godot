@@ -9,6 +9,7 @@ var bullet
 
 var BULLET = preload("res://Szenes/Bullet.tscn")
 
+
 onready var fireDirection = Vector2()
 
 signal shoot(BULLET, direction)
@@ -36,7 +37,7 @@ func _input(event):
 
 func _on_MainTurret_shoot(Bullet, direction):
 	can_fire = false
-	$Timer.start()
+	$Fire_rate_Timer.start()
 	bullet = Bullet.instance()
 	print("arrow created")
 	
@@ -45,16 +46,7 @@ func _on_MainTurret_shoot(Bullet, direction):
 #	var look_vec = (get_global_position() - get_global_mouse_position()).normalized()
 	
 	bullet.set_global_rotation_degrees(direction)
-#	bullet.set_global_rotation_degrees(atan2(look_vec.y, look_vec.x)) 
-	
-	####vllt mal global rotation mit richtungsvekor und in winkel umwandeln
-	
-	
-	
-#	bullet.position = global_position
-#	bullet.rotation = direction
-##	bullet.translate(fireDirection)
-
+#	
 
 func _on_Area2D_mouse_entered():
 	finger_in_touchArea = true
