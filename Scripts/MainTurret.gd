@@ -16,7 +16,7 @@ signal shoot(BULLET, direction)
 signal create_arrow (BULLET)
 
 func _ready():
-	Global.fixedPoint = get_global_position()
+	Global.fixedPoint = $Barrel.get_global_position()
 	
 
 
@@ -26,8 +26,10 @@ func _process(delta):
 
 func _input(event):
 	if event is InputEventMouseButton:
-		if event.button_index == BUTTON_LEFT and event.is_action_released("ui_fire") and finger_in_touchArea and can_fire:
-			print("jo")
+		if event.button_index == BUTTON_LEFT and event.is_action_pressed("ui_fire") and finger_in_touchArea and can_fire:
+#	if event is InputEventScreenTouch:
+#		if event.pressed and finger_in_touchArea and can_fire:
+			$Barrel.look_at(get_global_mouse_position())
 			emit_signal("shoot", BULLET, $Barrel.get_global_rotation_degrees())
 			
 		
@@ -41,8 +43,10 @@ func _on_MainTurret_shoot(Bullet, direction):
 	bullet = Bullet.instance()
 	print("arrow created")
 	
+	bullet.global_position = $Barrel/Muzzle.global_position
 	get_node("/root/Level1").add_child(bullet)
-	bullet.global_position = $Barrel.global_position
+	
+	
 #	var look_vec = (get_global_position() - get_global_mouse_position()).normalized()
 	
 	bullet.set_global_rotation_degrees(direction)
@@ -52,5 +56,11 @@ func _on_Area2D_mouse_entered():
 	finger_in_touchArea = true
 
 
+func _on_Area2D_mouse_exited():
+	finger_in_touchArea = false
+
+
 func _on_Timer_timeout():
 	can_fire = true
+
+

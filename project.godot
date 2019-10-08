@@ -17,7 +17,7 @@ _global_script_class_icons={
 
 config/name="BAseDefence"
 run/main_scene="res://Levels/Level1.tscn"
-config/icon="res://Szenes/icon.png"
+config/icon="res://icon.png"
 
 [autoload]
 
@@ -28,6 +28,7 @@ Global="*res://Scripts/Global.gd"
 window/size/width=600
 window/size/height=1024
 window/handheld/orientation="portrait"
+window/stretch/mode="2d"
 
 [input]
 
@@ -36,6 +37,12 @@ ui_fire={
 "events": [ Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"button_mask":0,"position":Vector2( 0, 0 ),"global_position":Vector2( 0, 0 ),"factor":1.0,"button_index":1,"pressed":false,"doubleclick":false,"script":null)
  ]
 }
+
+[layer_names]
+
+2d_physics/layer_1="Player"
+2d_physics/layer_2="Enemy"
+2d_physics/layer_3="Enviroment"
 
 [rendering]
 
