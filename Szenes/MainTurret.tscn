@@ -1,8 +1,11 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://Scripts/MainTurret.gd" type="Script" id=1]
 [ext_resource path="res://Assets/TurretBase.png" type="Texture" id=2]
 [ext_resource path="res://Szenes/Barrel.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Assets/AnimatedSprites/explosion1.png" type="Texture" id=4]
+
+[sub_resource type="CircleShape2D" id=1]
 
 [node name="MainTurret" type="Node2D"]
 script = ExtResource( 1 )
@@ -19,6 +22,13 @@ scale = Vector2( 3, 1.5 )
 [node name="Muzzle" type="Position2D" parent="Barrel"]
 position = Vector2( -14, 0.00010136 )
 
+[node name="TouchScreenButton" type="TouchScreenButton" parent="Barrel"]
+position = Vector2( 5.29476, -12.9568 )
+scale = Vector2( 0.5, 1 )
+normal = ExtResource( 4 )
+shape = SubResource( 1 )
+shape_visible = false
+
 [node name="Fire_rate_Timer" type="Timer" parent="."]
 wait_time = 0.54
 
@@ -27,8 +37,10 @@ gravity_vec = Vector2( 0, 0 )
 gravity = 0.0
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Area2D"]
+position = Vector2( 0.19371, 0 )
 polygon = PoolVector2Array( -30, -6, -78, 12, -66, 30, -54, 42, -30, 54, -12, 60, 12, 60, 36, 54, 54, 42, 72, 24, 78, 12, 30, -6 )
 [connection signal="create_arrow" from="." to="." method="_on_MainTurret_create_arrow"]
+[connection signal="pressed" from="Barrel/TouchScreenButton" to="." method="_on_TouchScreenButton_pressed"]
 [connection signal="timeout" from="Fire_rate_Timer" to="." method="_on_Timer_timeout"]
 [connection signal="mouse_entered" from="Area2D" to="." method="_on_Area2D_mouse_entered"]
 [connection signal="mouse_exited" from="Area2D" to="." method="_on_Area2D_mouse_exited"]
